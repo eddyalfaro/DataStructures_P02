@@ -25,6 +25,10 @@ bagOfWords::bagOfWords (int numOfWords)
 	_frequencies = new int[numOfWords];
 }
 
+bagOfWords::~bagOfWords (){
+
+}
+
 myString* bagOfWords::get_Words()
 {
 	return _words;

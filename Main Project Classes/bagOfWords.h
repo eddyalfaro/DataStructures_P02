@@ -16,9 +16,9 @@ class bagOfWords {
 		int binarySearchAndInsert (myString& W);
 
 	protected:
-		myString* _words;
-		int* _frequencies;
-		int _size;
+		myString* _words;//stores the Strings readed from imput
+		int* _frequencies;//stores the frequencies of the words. It is sincronizzed by index with the words
+		int _size;//stores the number of words that are added in the array
 
 		int get_size();
 		int* get_Freq();

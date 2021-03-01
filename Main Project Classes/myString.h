@@ -12,22 +12,32 @@
 namespace std {
 
 class myString {
+
 	friend ostream& operator << (ostream& s, myString& A);
+
 	protected:
 		char* strArray;
 		int size;
 		void strCpy (char* A, char* B, int n);
 		char* getWord();
+
 	public:
-		myString ();
-		myString(char* inpStr);
-		myString (myString& B);
+		myString ();//default constructor
+		myString(char* inpStr);//non-default constructor
+		myString (myString& B);//copy constructor
+
 		int Size();
+		int compareTo(myString& B);
+
 	    bool operator == (myString& B);
 		bool operator > (myString& B);
 		bool operator < (myString& B);
+
+		void display();
+
 		myString& operator = (myString& B);
 		myString& operator = (char* B);
+
 		~myString();
 };
 

@@ -11,7 +11,7 @@ namespace std {
 
 // used to empty a given string A of length n
 void emptyString (char* A, int n) {
-	for (int i=0; i < n; i++) {
+	for (int i=0; i < n; i++) {//runs throught the array of char and places \0 as value
 		A[i] = '\0';
 	}
 }
@@ -46,13 +46,18 @@ myString::myString () {
 // non default constructor - initialize object with an existing string
 myString::myString (char* inpStr) {
 	int i = 0;
-	while (inpStr[i] != '\0')
+
+	while (inpStr[i] != '\0') {//checks the size of the input string
 		i++;
-	size = i;
-	strArray = new char[size];
-	emptyString(strArray, size+1);
-	for (int j=0; j < size; j++)
+	}
+
+	size = i;//asings the found size to the actual size value
+	strArray = new char[size]; // creates array of the found size
+	emptyString(strArray, size+1);//empties the string from garbage values
+
+	for (int j=0; j < size; j++){ //fills the array with the parameter string
 		strArray[j] = inpStr[j];
+	}
 }
 
 // non default constructor - initialize object with an existing mystring object
@@ -65,6 +70,12 @@ myString::myString (myString& B) {
 	stringCopy(B.strArray, size, strArray);
 }
 
+myString::~myString (){
+	delete [] strArray;
+	size = 0;
+}
+
+//getter for the array of characters that contains the string
 char* myString::getWord() {
 	return strArray;
 }
@@ -76,41 +87,97 @@ int myString::Size () {
 
 // overloading = operator - initialize object with an existing string
 myString& myString::operator = (char* B) {
+	int i = 0;
 
-	// TODO
+	while (B[i] != '\0') {//checks the size of the string to be input
+		i++;
+	}
 
-	return NULL;
+	size = i;//asings the found size to the actual size value
+	strArray = new char[size]; // creates array of the found size
+	emptyString(strArray, size+1);//empties the string from garbage values
+
+	for (int j=0; j < size; j++){ //fills the array with the parameter string
+		strArray[j] = B[j];
+	}
+
+	return *this;
 }
 
 // overloading = operator - initialize object with an existing mystring object
 myString& myString::operator = (myString& B) {
-
-	// TODO
-
-	return NULL;
+	delete [] strArray;
+	strArray = NULL;
+	size = B.size;
+	strArray = new char[size];
+	emptyString(strArray, size+1);
+	stringCopy(B.strArray, size, strArray);
+	return *this;
 }
 
 // checking if two myString objects are the same - return true or false
 bool myString::operator == (myString& B) {
+	int minSize = this->size;
 
-	// TODO
+	if (B.size < minSize){//checks if the words have different sizes
+		return false;
+	}
 
-	return false;
+	int sameCharVal = 0;
+	for (int i = 0; i < minSize; i++){//if they have same size the loop checks for same ascii values
+		if (strArray[i] == '\0' || B.strArray[i] == '\0'){
+			break;
+		}
+
+		if (strArray[i] == B.strArray[i]){
+			sameCharVal++;
+		}
+	}
+
+	return (sameCharVal == minSize);//returns true if all the values in the string are the same
 }
 
 // comparison of myString A if less than myString B - return true or false
 bool myString::operator < (myString& B) {
+	int minSize = this->size;
 
+	if (B.size < minSize){
+		minSize = B.size;
+	}
+
+	for (int i = 0; i < minSize ; i++){//checking word for word
+		int diff = this->strArray[i] - B.strArray[i]; //checking the difference between the asccii values
+		if (diff > 0){//exits the loop as soon as it finds a positive difference
+			break;
+		}
+		if (diff < 0){//if no positive difference is found before a negative difference the value returns true
+			return true;
+		}
+	}
 	return false;
 }
 
 // comparison of myString A if greater than myString B - return true or false
 bool myString::operator > (myString& B) {
-
-	// TODO
-
-	return false;
+	return !(*this < B || *this == B);//returns true if it is neither greater or equals
 }
 
+int myString::compareTo(myString& B){//
+
+	if (*this == B){
+		return 0;
+	} else if (*this < B){
+		return -1;
+	} else {
+		return 1;
+	}
+
+}
+
+void myString::display(){ // displays the value of the estring in the output stream;
+	for (int i = 0; i < size; i ++){
+		cout << strArray[i];
+	}
+}
 
 } /* namespace std */
