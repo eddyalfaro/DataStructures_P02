@@ -26,7 +26,9 @@ bagOfWords::bagOfWords (int numOfWords)
 }
 
 bagOfWords::~bagOfWords (){
-
+	delete [] _words;
+	delete [] _frequencies;
+	_size = 0;
 }
 
 myString* bagOfWords::get_Words()
