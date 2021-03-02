@@ -66,17 +66,21 @@ int main(){
 				cout << "> resulting value: " << (stopWordsList[i]).compareTo(stopWordsList[i - 1]) << endl;
 			}*/
 		}
-		cout << "Number of Stop words: " << numStopWords << endl;
+		cout << "Number of Stop words: " << numStopWords << endl << endl;
 
 		//Now read a text and put them in the bagOfWords instance.
 		bagOfWords* myBag = new bagOfWords();
 		token = getNextToken(); //first read the token as an array of characters
 		tokenString = new myString (token);//create a myString object with the token
+		cout << "Adding words from text" << endl << endl;
 
 		while (token != NULL) {
+			tokenString = new myString(token);
 			(*myBag).addWord(*tokenString); //add token to myBag
 			token = getNextToken();
+			cout << endl;
 		}
+
 		/*
 		// this should display the token and frequency;
 		// note that becuase you are using binary search and insert the tokens will
