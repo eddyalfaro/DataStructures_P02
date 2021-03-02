@@ -83,28 +83,28 @@ bagOfWords* bagOfWords::removeStopWords(myString* stopWords, int numStopWords)
 int bagOfWords::binarySearchAndInsert (myString& wordToFind)
 {
 	int indexFound = binarySearch(wordToFind, 0, _size - 1);
-	cout << "index = " << indexFound << ". ";
-	cout << "size = " << _size << endl;
+	//cout << "index = " << indexFound << ". ";
+	//cout << "size = " << _size << endl;
 
 	if (indexFound == _size){//word found to be placed at the end of the array
 		incrementSize();
-		cout << "word found to be placed at the end of the array" << endl;
+		//cout << "word found to be placed at the end of the array" << endl;
 
 		_words[_size] = wordToFind;
 
-		cout << "<" << _words[_size] << "> is a new word" << endl;
+		//cout << "<" << _words[_size] << "> is a new word" << endl;
 
 		_frequencies[_size] = 1;
 		_size++;
 
-		cout << "<" << _words[indexFound] << "> first appereance, frequency of " << _frequencies[indexFound] << endl;
+		//cout << "<" << _words[indexFound] << "> first appereance, frequency of " << _frequencies[indexFound] << endl;
 		return 1;
 	}
 
 	if (_words[indexFound] == wordToFind){//word found within the array
 			_frequencies[indexFound] += 1;
-			cout << "<" << _words[indexFound] << "> already present within array" << endl;
-			cout << "<" << _words[indexFound] << "> has a frequency of " << _frequencies[indexFound] << endl;
+			//cout << "<" << _words[indexFound] << "> already present within array" << endl;
+			//cout << "<" << _words[indexFound] << "> has a frequency of " << _frequencies[indexFound] << endl;
 			return 1;
 	}
 
@@ -120,21 +120,21 @@ void bagOfWords::addWord(myString& newWord){
 		_words[_size] = newWord;
 		_frequencies[_size++] = 1;
 
-		cout << _words[0] << " has been added" << endl;
-		cout << _words[0] << " has a frequency of " << _frequencies[0] << endl;
+		//cout << _words[0] << " has been added" << endl;
+		//cout << _words[0] << " has a frequency of " << _frequencies[0] << endl;
 	}else {//find if the word has already been added or not
 		binarySearchAndInsert(newWord);
 	}
 
-	for (int i = 0; i < (_size); i++){
-			cout << "word N. " << i << ": <" << _words[i];
-			cout << ">. With frequency " << _frequencies[i] << endl << endl;
-	}
+	//for (int i = 0; i < (_size); i++){
+		//	cout << "word N. " << i << ": <" << _words[i];
+			//cout << ">. With frequency " << _frequencies[i] << endl << endl;
+	//}
 }
 
 void bagOfWords::incrementSize(){
 
-	cout << "increasing array size " << endl;
+	//cout << "increasing array size " << endl;
 	int newSize =  _size + 1;
 	myString* temp = new myString[newSize];
 	int* frqTemp = new int[newSize];

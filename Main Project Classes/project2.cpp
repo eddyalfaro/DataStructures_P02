@@ -81,6 +81,7 @@ int main(){
 			cout << endl;
 		}
 
+		cout << "WHILE LOOP EXITED" << endl;
 		/*
 		// this should display the token and frequency;
 		// note that becuase you are using binary search and insert the tokens will
