@@ -19,6 +19,7 @@ class bagOfWords {
 
 		void insert(int index, myString& newWord);
 		void incrementSize();
+		void shiftDownFrom(int index);
 
 	protected:
 		myString* _words;//stores the Strings readed from imput
