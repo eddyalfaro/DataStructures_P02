@@ -83,23 +83,28 @@ bagOfWords* bagOfWords::removeStopWords(myString* stopWords, int numStopWords)
 int bagOfWords::binarySearchAndInsert (myString& wordToFind)
 {
 	int indexFound = binarySearch(wordToFind, 0, _size - 1);
-	cout << "index " << indexFound << endl;
-	cout << "size " << _size << endl;
+	cout << "index = " << indexFound << ". ";
+	cout << "size = " << _size << endl;
 
 	if (indexFound == _size){//word found to be placed at the end of the array
 		incrementSize();
 		cout << "word found to be placed at the end of the array" << endl;
+
 		_words[_size] = wordToFind;
-		_frequencies[_size++] = 1;
-		cout << _words[indexFound] << " is a new word" << endl;
-		cout << _words[indexFound] << " first appereance, frequency of " << _frequencies[indexFound] << endl;
+
+		cout << "<" << _words[_size] << "> is a new word" << endl;
+
+		_frequencies[_size] = 1;
+		_size++;
+
+		cout << "<" << _words[indexFound] << "> first appereance, frequency of " << _frequencies[indexFound] << endl;
 		return 1;
 	}
 
 	if (_words[indexFound] == wordToFind){//word found within the array
 			_frequencies[indexFound] += 1;
-			cout << _words[indexFound] << " Found in array" << endl;
-			cout << _words[indexFound] << " has a frequency of " << _frequencies[indexFound] << endl;
+			cout << "<" << _words[indexFound] << "> already present within array" << endl;
+			cout << "<" << _words[indexFound] << "> has a frequency of " << _frequencies[indexFound] << endl;
 			return 1;
 	}
 
@@ -109,29 +114,42 @@ int bagOfWords::binarySearchAndInsert (myString& wordToFind)
 // method to add words to the bagOfWords object
 void bagOfWords::addWord(myString& newWord){
 
-	if (_size < 1){//add the first Word
+	cout << "Adding <" << newWord << ">" << endl;
+	if (_size == 0){//add the first Word
 		incrementSize();
 		_words[_size] = newWord;
 		_frequencies[_size++] = 1;
 
 		cout << _words[0] << " has been added" << endl;
-		cout << _words[0] << " has a frequency of " << _words[0] << endl;
+		cout << _words[0] << " has a frequency of " << _frequencies[0] << endl;
 	}else {//find if the word has already been added or not
 		binarySearchAndInsert(newWord);
+	}
+
+	for (int i = 0; i < (_size); i++){
+			cout << "word N. " << i << ": <" << _words[i];
+			cout << ">. With frequency " << _frequencies[i] << endl << endl;
 	}
 }
 
 void bagOfWords::incrementSize(){
-	myString* temp = new myString[_size + 1];
-	int* frqTemp = new int[_size + 1];
+
+	cout << "increasing array size " << endl;
+	int newSize =  _size + 1;
+	myString* temp = new myString[newSize];
+	int* frqTemp = new int[newSize];
 
 	for (int i = 0; i < (_size); i++){
 		temp[i] = _words[i];
 		frqTemp[i] = _frequencies[i];
 	}
 
-	*_words = *temp;
-	*_frequencies = *frqTemp;
+	_words = new myString[newSize];
+	_frequencies = new int[newSize];
+
+	_words = temp;
+	_frequencies = frqTemp;
+
 }
 
 void bagOfWords::insert(int index, myString& newWord){//inserts word and shift elements to the right//down
@@ -143,16 +161,16 @@ int bagOfWords::binarySearch(myString& word, int lowVal, int highVal){
 	int itemPos;       // Position where item found, -1 if not found
 	int rangeSize;     // Remaining range of values to search for match
 
-	cout << word << " finding within range [" << lowVal << ", " << highVal << ")" << endl;
+	//cout << "<" << word << "> finding within range [" << lowVal << ", " << highVal << ")" << endl;
 	rangeSize = (highVal - lowVal) + 1;
 	midVal = (highVal + lowVal) / 2;
 
 	if (word == _words[midVal]) {// Base case 1: item found at midVal position
-		cout << word << " found word at index: ";
+		//cout << "<" << word << "> found word at index: ";
 		itemPos = midVal;
 	} else if (rangeSize == 1) {// Base case 2: match not found, returns the position at which the word must be inserted
-		cout << "Word not found. Last word searched: " << _words[midVal] << endl;
-		cout << "New word must be inserted in position: ";
+		//cout << "Word not found. Last word searched: <" << _words[midVal] << ">" << endl;
+		//cout << "New word must be inserted in position: ";
 
 		if (_words[midVal] < word){
 			itemPos = midVal + 1;
@@ -161,15 +179,15 @@ int bagOfWords::binarySearch(myString& word, int lowVal, int highVal){
 		}
 	} else { // Recursive case: search lower or upper half
 		if (word.compareTo(_words[midVal]) < 0) { // Search lower half, recursive call
-			cout << "Searching lower half." << endl;
+			//cout << "Searching lower half." << endl;
 			itemPos = binarySearch(word, lowVal, midVal);
 		}else { // Search upper half, recursive call
-			cout << "Searching upper half." << endl;
+			//cout << "Searching upper half." << endl;
 			itemPos = binarySearch(word, midVal + 1, highVal);
 		}
 	}
 
-	cout << itemPos << endl;
+	//cout << itemPos << endl;
 	return itemPos;
 }
 
