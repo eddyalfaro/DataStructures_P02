@@ -17,7 +17,7 @@ class bagOfWords {
 		int binarySearch(myString& word, int lowVal, int highVal);//searches for a word in a sorted array returning the index if found and -1 if not found;
 		int search(myString& word); //searches for a word in a non-sorted array returning the index if found and -1 if not found;
 
-		void insert(int index);
+		void insert(int index, myString& newWord);
 
 	protected:
 		myString* _words;//stores the Strings readed from imput

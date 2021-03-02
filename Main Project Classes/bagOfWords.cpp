@@ -96,7 +96,7 @@ void bagOfWords::addWord(myString& newWord){
 	}
 }
 
-void bagOfWords::insert(int index){
+void bagOfWords::insert(int index, myString& newWord){//inserts word and shift elements to the right//down
 
 }
 
@@ -112,7 +112,7 @@ int bagOfWords::binarySearch(myString& word, int lowVal, int highVal){
 	if (word == _words[midVal]) {// Base case 1: item found at midVal position
 		cout << word << " found person at index: ";
 		itemPos = midVal;
-	} else if (rangeSize == 1) {// Base case 2: match not found
+	} else if (rangeSize == 1) {// Base case 2: match not found, returns the position at which the word must be inserted
 		cout << "Word not found. Last word searched: " << _words[midVal] << endl;
 		cout << "New word must be inserted in position: ";
 
