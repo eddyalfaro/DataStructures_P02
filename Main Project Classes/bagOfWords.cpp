@@ -54,6 +54,7 @@ void bagOfWords::setSize(int i)
 // print the bag of words in dictionary format
 void bagOfWords::display()
 {
+	cout << "Bag of Words: " << _size << endl;
 	for (int i = 0 ; i < _size; i++){
 		cout << _words[i] << ": " << _frequencies[i] << endl;
 	}
@@ -63,6 +64,17 @@ void bagOfWords::display()
 void bagOfWords::sortFreq()
 {
 	// TODO
+}
+
+template <typename T>
+void bagOfWords::mergeSort(T& array, int from, int to){
+
+
+}
+
+template <typename T>
+void bagOfWords::merge(T& array, int from, int to){
+
 }
 
 // sort the _words and _frequencies, alphabetically
@@ -83,31 +95,31 @@ bagOfWords* bagOfWords::removeStopWords(myString* stopWords, int numStopWords)
 int bagOfWords::binarySearchAndInsert (myString& wordToFind)
 {
 	int indexFound = binarySearch(wordToFind, 0, _size - 1);
-	cout << "index = " << indexFound << ". ";
-	cout << "size = " << _size << endl;
+	//cout << "index = " << indexFound << ". ";
+	//cout << "size = " << _size << endl;
 
 	if (indexFound == _size){//word found to be placed at the end of the array
 		incrementSize();
-		cout << "word found to be placed at the end of the array" << endl;
+		//cout << "word found to be placed at the end of the array" << endl;
 
 		_words[_size] = wordToFind;
 
-		cout << "<" << _words[_size] << "> is a new word" << endl;
+		//cout << "<" << _words[_size] << "> is a new word" << endl;
 
 		_frequencies[_size] = 1;
 		_size++;
 
-		cout << "<" << _words[indexFound] << "> first appereance, frequency of " << _frequencies[indexFound] << endl;
+		//cout << "<" << _words[indexFound] << "> first appereance, frequency of " << _frequencies[indexFound] << endl;
 		return 1;
 	}
 
 	if (_words[indexFound] == wordToFind){//word found within the array
 		_frequencies[indexFound] += 1;
-		cout << "<" << _words[indexFound] << "> already present within array" << endl;
-		cout << "<" << _words[indexFound] << "> has a frequency of " << _frequencies[indexFound] << endl;
+		//cout << "<" << _words[indexFound] << "> already present within array" << endl;
+		//cout << "<" << _words[indexFound] << "> has a frequency of " << _frequencies[indexFound] << endl;
 		return 1;
-	}else {
-		cout << "<" << _words[indexFound] << "> needs to be inserted in array" << endl;
+	}else {//word to be inserted at a specific location within array
+		//cout << "<" << _words[indexFound] << "> needs to be inserted in array" << endl;
 		insert(indexFound, wordToFind);
 		return 1;
 	}
@@ -118,22 +130,22 @@ int bagOfWords::binarySearchAndInsert (myString& wordToFind)
 // method to add words to the bagOfWords object
 void bagOfWords::addWord(myString& newWord){
 
-	cout << "Adding <" << newWord << ">" << endl;
+	//cout << "Adding <" << newWord << ">" << endl;
 	if (_size == 0){//add the first Word
 		incrementSize();
 		_words[_size] = newWord;
 		_frequencies[_size++] = 1;
 
-		cout << _words[0] << " has been added" << endl;
-		cout << _words[0] << " has a frequency of " << _frequencies[0] << endl;
+		//cout << _words[0] << " has been added" << endl;
+		//cout << _words[0] << " has a frequency of " << _frequencies[0] << endl;
 	}else {//find if the word has already been added or not
 		binarySearchAndInsert(newWord);
 	}
 
-	for (int i = 0; i < (_size); i++){
-			cout << "word N. " << i << ": <" << _words[i];
-			cout << ">. With frequency " << _frequencies[i] << endl;
-	}
+//	for (int i = 0; i < (_size); i++){
+//			cout << "word N. " << i << ": <" << _words[i];
+//			cout << ">. With frequency " << _frequencies[i] << endl;
+//	}
 }
 
 void bagOfWords::incrementSize(){
@@ -165,8 +177,17 @@ void bagOfWords::shiftDownFrom(int index){
 
 }
 
+void bagOfWords::shiftUpFrom(int index){
+
+	for (int i = index; i < (_size - 1); i++){
+		_words[i] = _words[i + 1];
+		_frequencies[i] = _frequencies[i + 1];
+	}
+
+}
+
 void bagOfWords::insert(int index, myString& newWord){//inserts word and shift elements to the right//down
-	cout << "inserting <" << newWord << ">" << endl;
+	//cout << "inserting <" << newWord << ">" << endl;
 	incrementSize();
 	shiftDownFrom(index);
 	_words[index] = newWord;

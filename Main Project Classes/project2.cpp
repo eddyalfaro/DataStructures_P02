@@ -72,25 +72,27 @@ int main(){
 		bagOfWords* myBag = new bagOfWords();
 		token = getNextToken(); //first read the token as an array of characters
 		tokenString = new myString (token);//create a myString object with the token
-		cout << "Adding words from text" << endl << endl;
+		//cout << "Adding words from text" << endl << endl;
 
 		while (token != NULL) {
 			tokenString = new myString(token);
 			(*myBag).addWord(*tokenString); //add token to myBag
 			token = getNextToken();
-			cout << endl;
+			//cout << endl;
 		}
 
-		cout << "WHILE LOOP EXITED" << endl;
-		/*
+		//cout << "WHILE LOOP EXITED" << endl;
+		cout << "Input display:" << endl;
 		// this should display the token and frequency;
 		// note that becuase you are using binary search and insert the tokens will
 		// be sorted alphabetically
 		(*myBag).display ();
 
+		cout << endl << "myBag - Sorted based on frequency:" << endl;
+
 		(*myBag).sortFreq ();
 		(*myBag).display ();
-		(*myBag).sortWords();
+/*		(*myBag).sortWords();
 		(*myBag).display ();
 		bagOfWords* newBag = (*myBag).removeStopWords(stopWordsList, numStopWords);
 		(*newBag).display();
