@@ -54,9 +54,9 @@ void bagOfWords::setSize(int i)
 // print the bag of words in dictionary format
 void bagOfWords::display()
 {
-
-	// TODO
-
+	for (int i = 0 ; i < _size; i++){
+		cout << _words[i] << ": " << _frequencies[i] << endl;
+	}
 }
 
 // sort the _words and _frequencies based on frequencies
@@ -82,16 +82,68 @@ bagOfWords* bagOfWords::removeStopWords(myString* stopWords, int numStopWords)
 // to search for a given word in _words - returns 0 if not found, 1 if found
 int bagOfWords::binarySearchAndInsert (myString& wordToFind)
 {
-
-	// TODO
+	int indexFound = binarySearch(wordToFind, 0, _size);
 
 	return 0;
 }
 
 // method to add words to the bagOfWords object
-void bagOfWords::addWord(myString & newWord)
-{
-	// TODO
+void bagOfWords::addWord(myString& newWord){
+	if (_size == 0){//add the first Word
+
+	}else {//find if the word has already been added or not
+
+	}
+}
+
+void bagOfWords::insert(int index){
+
+}
+
+int bagOfWords::binarySearch(myString& word, int lowVal, int highVal){
+	int midVal;        // Midpoint of low and high values
+	int itemPos;       // Position where item found, -1 if not found
+	int rangeSize;     // Remaining range of values to search for match
+
+	cout << word << ".Find() range " << lowVal << "-" << highVal << endl;
+	rangeSize = (highVal - lowVal) + 1;
+	midVal = (highVal + lowVal) / 2;
+
+	if (word == _words[midVal]) {// Base case 1: item found at midVal position
+		cout << word << " found person at index: ";
+		itemPos = midVal;
+	} else if (rangeSize == 1) {// Base case 2: match not found
+		cout << "Word not found. Last word searched: " << _words[midVal] << endl;
+		cout << "New word must be inserted in position: ";
+
+		if (_words[midVal] < word){
+			itemPos = midVal + 1;
+		} else {
+			itemPos = midVal;
+		}
+	} else { // Recursive case: search lower or upper half
+		if (word.compareTo(_words[midVal]) < 0) { // Search lower half, recursive call
+			cout << "Searching lower half." << endl;
+			itemPos = binarySearch(word, lowVal, midVal);
+		}else { // Search upper half, recursive call
+			cout << "Searching upper half." << endl;
+			itemPos = binarySearch(word, midVal + 1, highVal);
+		}
+	}
+
+	cout << itemPos << endl;
+	return itemPos;
+}
+
+int bagOfWords::search(myString& word){
+	for (int i = 0; i < _size; i++){
+
+		if (_words[i].compareTo(word) == 0){
+			return i;
+		}
+	}
+
+	return -1;
 }
 
 } /* namespace std */
