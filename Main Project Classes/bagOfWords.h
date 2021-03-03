@@ -21,8 +21,8 @@ class bagOfWords {
 		void insert(int index, myString& newWord);//inserts the given word at the given index in _words array
 		void incrementSize();//increments the number of elements of _words array by one
 
-		template <typename T>
-		void merge(T& array, int from, int to); //helper method to merge the sorted spitted array from sort
+		template <typename T, typename V>
+		void merge(T* array, int from, int to, V* syncArray); //helper method to merge the sorted spitted array from sort
 
 		void shiftDownFrom(int index);//moves everything down by one index from the given index
 									// i; i+1; index; .... ; (_size -1)
@@ -52,8 +52,8 @@ class bagOfWords {
 		void sortWords(); //sort words array alphabetically
 		void display(); //print word followed by a colon followed by a single space and frequencuy
 
-		template <typename T>
-		void mergeSort(T& array, int from, int to); //sorts an array of data type T, with to being inclusive
+		template <typename T, typename V>
+		void mergeSort(T& arraytoSort, int from, int to, V& sincArray); //sorts an array of data type T, with to being inclusive
 
 		bagOfWords* removeStopWords(myString* stopWords, int numStopWords); //remove all the words in the array
 									//stopWords from _words array

@@ -63,24 +63,97 @@ void bagOfWords::display()
 // sort the _words and _frequencies based on frequencies
 void bagOfWords::sortFreq()
 {
-	// TODO
+	mergeSort(_frequencies, 0, (_size - 1), _words);
 }
 
-template <typename T>
-void bagOfWords::mergeSort(T& array, int from, int to){
+template <typename T, typename V>
+void bagOfWords::mergeSort(T& array, int from, int to, V& syncArray){
 
+	int highVal, lowVal, midVal; //array identifiers for locations to sort and midpoit
+	int rangeSize; //identifies how many values are within the range
+
+	highVal = to;
+	lowVal = from;
+	midVal = (to + from)/2;
+
+	rangeSize = (to - from) + 1;
+
+	if (rangeSize == 1){// CASE 1: only one value to be sorted
+		//cout << "only one value left, index [" << midVal << "] with element member <" << array[midVal] << ">" << endl;
+		return;
+	} else { // Recurring case. splits the array in two until reaches case one then returns and sorts the upper and lower halfs
+		mergeSort(array, lowVal, midVal, syncArray);//sorts upper half
+		mergeSort(array, midVal + 1, highVal, syncArray);//sorts lower half
+		merge(array, lowVal, highVal, syncArray);//merges the sorted lower and upper halfs
+	}
 
 }
 
-template <typename T>
-void bagOfWords::merge(T& array, int from, int to){
+template <typename T, typename V>
+void bagOfWords::merge(T* array, int from, int to, V* syncArray){
+	int upperLow, upperHigh;
+	int lowerLow, lowerHigh;
+	int numOfElements;
 
+	upperLow = from;
+	upperHigh = (from + to)/2;
+
+	lowerLow = upperHigh + 1;
+	lowerHigh = to;
+
+	numOfElements = (to - from) + 1;
+
+	T* temp = new T[numOfElements];
+	V* tempSync = new V[numOfElements];
+
+	int k = 0;//counter for total elements added;
+	int i = upperLow;//counter for elements in the upper half
+	int j = lowerLow;//counter for elements in the lower half
+
+	while ((i <= upperHigh) && (j <= lowerHigh)){//merging arrays: when both counters are within their ranges
+
+			if (array[i] > array[j]){//checks for the smallest value between the upper and loweer half
+				//cout << " Merging <" << (array[i]) << "> at index position " << i << endl;
+				temp[k] = (array[j]); //add the value in the upper section
+				tempSync[k++] = (syncArray[j]); //add the value sync to the array
+				j++;
+			} else {//checks for the smallest value between the upper and loweer half
+				//cout << " Merging <" << (array[j]) << "> at index position " << j << endl;
+				temp[k] = (array[i]);//add the value in the lower section
+				tempSync[k++] = (syncArray[i]);//add the value sync to the array
+				i++;
+			}
+
+	}
+
+	while(i <= upperHigh){//if values in the lower secition have already been depleated
+			temp[k] = (array[i]); //add the value in the uppwe section
+			tempSync[k++] = (syncArray[i]);
+			i++;
+	}
+
+	while(j <= lowerHigh){//if the values in the upper section have already been depleated
+		temp[k] = (array[j]); //add the values in the lower section
+		tempSync[k++] = (syncArray[j]);
+		j++;
+	}
+
+	//cout << "MERGE METHOD - Merged Elements: " << numOfElements << endl;
+	for (int i = from; i < (to + 1); i++){
+		array[i] = temp[i - from];
+		syncArray[i] = tempSync[i - from];
+		//cout << "{index = " << (i) << ", element = " << array[i] << '}' << '\t';
+	}
+	//cout << endl << endl;
+
+	delete [] temp;
+	delete [] tempSync;
 }
 
 // sort the _words and _frequencies, alphabetically
 void bagOfWords::sortWords()
 {
-	// TODO
+	mergeSort(_words, 0, (_size -1), _frequencies);
 }
 
 bagOfWords* bagOfWords::removeStopWords(myString* stopWords, int numStopWords)

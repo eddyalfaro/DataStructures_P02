@@ -92,9 +92,12 @@ int main(){
 
 		(*myBag).sortFreq ();
 		(*myBag).display ();
-/*		(*myBag).sortWords();
+
+		cout << endl << "myBag - Sorted alphabetically:" << endl;
+		(*myBag).sortWords();
 		(*myBag).display ();
-		bagOfWords* newBag = (*myBag).removeStopWords(stopWordsList, numStopWords);
+
+/*		bagOfWords* newBag = (*myBag).removeStopWords(stopWordsList, numStopWords);
 		(*newBag).display();
 		(*newBag).sortFreq ();
 		(*newBag).display ();
