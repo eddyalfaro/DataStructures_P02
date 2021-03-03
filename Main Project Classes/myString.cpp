@@ -117,24 +117,18 @@ myString& myString::operator = (myString& B) {
 
 // checking if two myString objects are the same - return true or false
 bool myString::operator == (myString& B) {
-	int minSize = this->size;
-
-	if (B.size < minSize){//checks if the words have different sizes
+	if (this->size != B.size){
 		return false;
 	}
 
-	int sameCharVal = 0;
-	for (int i = 0; i < minSize; i++){//if they have same size the loop checks for same ascii values
-		if (strArray[i] == '\0' || B.strArray[i] == '\0'){
-			break;
-		}
-
-		if (strArray[i] == B.strArray[i]){
-			sameCharVal++;
+	int count = 0;
+	for (int i = 0; i < size; i++){
+		if (this->strArray[i] == B.strArray[i]){
+			count++;
 		}
 	}
 
-	return (sameCharVal == minSize);//returns true if all the values in the string are the same
+	return (count == size);
 }
 
 // comparison of myString A if less than myString B - return true or false
@@ -145,16 +139,17 @@ bool myString::operator < (myString& B) {
 		minSize = B.size;
 	}
 
+
 	for (int i = 0; i < minSize ; i++){//checking word for word
 		int diff = this->strArray[i] - B.strArray[i]; //checking the difference between the asccii values
 		if (diff > 0){//exits the loop as soon as it finds a positive difference
-			break;
-		}
-		if (diff < 0){//if no positive difference is found before a negative difference the value returns true
+			return false;
+		} else if (diff < 0){//if no positive difference is found before a negative difference the value returns true
 			return true;
 		}
 	}
-	return false;
+
+	return (this->size < B.size);// if non of the return statements inside works, the shortest word goes first
 }
 
 // comparison of myString A if greater than myString B - return true or false

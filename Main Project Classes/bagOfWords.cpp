@@ -158,10 +158,26 @@ void bagOfWords::sortWords()
 
 bagOfWords* bagOfWords::removeStopWords(myString* stopWords, int numStopWords)
 {
+	int index = 0;
+	int remotions = 0;
+	sortWords();
+	cout << "removing words from list, Checking " << numStopWords << " of words" << endl;
+	for (int i = 0; i < numStopWords; i++){
+		cout << "searching for <" << stopWords[i] << "> within bag." << endl;
+		index = binarySearch(stopWords[i], 0, _size -1);
+		cout << "index found to be [" << index << "]" << endl;
+		cout << "word at [" << index << "] is <" << _words[index] << ">" << endl;
+		if (_words[index] == stopWords[i]){
+			cout << "word at index [" << index << "] is <" << _words[index] << ">, removing..." << endl;
+			shiftUpFrom(index);
+			remotions++;
+			cout << "word removed, new size: " << _size << ". Number of words removed: " << remotions << endl;
+		}
+		cout << endl;
+	}
 
-	// TODO
-
-	return NULL;
+	cout << endl;
+	return this;
 }
 
 // to search for a given word in _words - returns 0 if not found, 1 if found
@@ -256,6 +272,8 @@ void bagOfWords::shiftUpFrom(int index){
 		_words[i] = _words[i + 1];
 		_frequencies[i] = _frequencies[i + 1];
 	}
+
+	_size--;
 
 }
 

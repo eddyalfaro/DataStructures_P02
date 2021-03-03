@@ -97,14 +97,17 @@ int main(){
 		(*myBag).sortWords();
 		(*myBag).display ();
 
-/*		bagOfWords* newBag = (*myBag).removeStopWords(stopWordsList, numStopWords);
+		cout << endl << "newBag - Sorted alphabetically:" << endl;
+		bagOfWords* newBag = (*myBag).removeStopWords(stopWordsList, numStopWords);
 		(*newBag).display();
+
+		cout << endl << "newBag - Sorted based on frequency:" << endl;
 		(*newBag).sortFreq ();
 		(*newBag).display ();
 
 		delete stopWordsList;
 		delete myBag;
 		delete newBag;
-*/
+
 		return 0;
 }
